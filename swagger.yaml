@@ -1,29 +1,27 @@
 openapi: 3.0.0
 info:
-  title: Jobs API
+  title: JOBS API
   contact: {}
   version: '1.0'
 servers:
-  - url: https://jobs-api-06.herokuapp.com/api/v1
-    variables: {}
+- url: https://muji-jobs-api.herokuapp.com/api/v1
+  variables: {}
 paths:
   /auth/register:
     post:
       tags:
-        - Auth
-      summary: Register User
-      operationId: RegisterUser
+      - Auth
+      summary: register
+      operationId: register
       parameters: []
       requestBody:
         description: ''
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RegisterUserRequest'
+              $ref: '#/components/schemas/registerrequest'
             example:
-              name: bob
-              email: bob@gmail.com
-              password: secret
+              name: Mujtaba
         required: true
       responses:
         '200':
@@ -34,19 +32,19 @@ paths:
   /auth/login:
     post:
       tags:
-        - Auth
-      summary: Login User
-      operationId: LoginUser
+      - Auth
+      summary: login
+      operationId: login
       parameters: []
       requestBody:
         description: ''
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginUserRequest'
+              $ref: '#/components/schemas/loginrequest'
             example:
-              email: susan@gmail.com
-              password: secret
+              email: h.mujtabaayyaz@gmail.com
+              password: hassan.25
         required: true
       responses:
         '200':
@@ -57,37 +55,41 @@ paths:
   /jobs:
     post:
       tags:
-        - Jobs
-      summary: Create Job
-      operationId: CreateJob
+      - jobs
+      summary: create a job
+      operationId: createajob
       parameters: []
       requestBody:
         description: ''
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateJobRequest'
+              $ref: '#/components/schemas/createajobrequest'
             example:
-              company: google
-              position: front-end developer
+              company: google2
+              position: intern
         required: true
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
+      security:
+      - bearer: []
     get:
       tags:
-        - Jobs
-      summary: Get All Jobs
-      operationId: GetAllJobs
+      - jobs
+      summary: get all jobs
+      operationId: getalljobs
       parameters: []
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
-  /jobs/{id}:
+      security:
+      - bearer: []
+    /jobs/{id}:
     parameters:
       - in: path
         name: id
@@ -97,30 +99,32 @@ paths:
         description: The job ID
     get:
       tags:
-        - Jobs
-      summary: Get Single Job
-      operationId: GetSingleJob
+      - jobs
+      summary: get single job
+      operationId: getsinglejob
       parameters: []
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
-
+      security:
+      - bearer: []
+  
     patch:
       tags:
-        - Jobs
-      summary: Update Job
-      operationId: UpdateJob
+      - jobs
+      summary: update a job
+      operationId: updateajob
       parameters: []
       requestBody:
         description: ''
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateJobRequest'
+              $ref: '#/components/schemas/updateajobrequest'
             example:
-              company: random
+              company: googleupdated
               position: intern
         required: true
       responses:
@@ -128,42 +132,39 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+      security:
+      - bearer: []
+  /jobs/62dd4b9286edae25d8346956:
     delete:
       tags:
-        - Jobs
-      summary: Delete Job
-      operationId: DeleteJob
+      - jobs
+      summary: delete a job
+      operationId: deleteajob
       parameters: []
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
+      security:
+      - bearer: []
 components:
   schemas:
-    RegisterUserRequest:
-      title: RegisterUserRequest
+    registerrequest:
+      title: registerrequest
       required:
-        - name
-        - email
-        - password
+      - name
       type: object
       properties:
         name:
           type: string
-        email:
-          type: string
-        password:
-          type: string
       example:
-        name: bob
-        email: bob@gmail.com
-        password: secret
-    LoginUserRequest:
-      title: LoginUserRequest
+        name: Mujtaba
+    loginrequest:
+      title: loginrequest
       required:
-        - email
-        - password
+      - email
+      - password
       type: object
       properties:
         email:
@@ -171,13 +172,13 @@ components:
         password:
           type: string
       example:
-        email: susan@gmail.com
-        password: secret
-    CreateJobRequest:
-      title: CreateJobRequest
+        email: h.mujtabaayyaz@gmail.com
+        password: hassan.25
+    createajobrequest:
+      title: createajobrequest
       required:
-        - company
-        - position
+      - company
+      - position
       type: object
       properties:
         company:
@@ -185,13 +186,13 @@ components:
         position:
           type: string
       example:
-        company: google
-        position: front-end developer
-    UpdateJobRequest:
-      title: UpdateJobRequest
+        company: google2
+        position: intern
+    updateajobrequest:
+      title: updateajobrequest
       required:
-        - company
-        - position
+      - company
+      - position
       type: object
       properties:
         company:
@@ -199,16 +200,17 @@ components:
         position:
           type: string
       example:
-        company: random
+        company: googleupdated
         position: intern
   securitySchemes:
-    httpBearer:
+    bearer:
       type: http
       scheme: bearer
-security:
-  - httpBearer: []
+security: []
 tags:
-  - name: Auth
-    description: ''
-  - name: Jobs
-    description: ''
+- name: Misc
+  description: ''
+- name: Auth
+  description: ''
+- name: jobs
+  description: ''
